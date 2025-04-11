@@ -14,7 +14,7 @@ type DataBase struct {
 func (database *DataBase) InitDB() error {
 	var err error
 	//dsn := os.Getenv("DATABASE_URL")
-	dsn := "host=localhost user=postgres password=5121508 dbname=catering_notif_db port=5432 sslmode=disable"
+	dsn := "host=localhost user=postgres password=5121508 dbname=admp_notif_db port=5432 sslmode=disable"
 	database.Connection, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Println("Error open DB connection: ", err)

@@ -2,16 +2,21 @@ package rabbitmq
 
 import (
 	"encoding/json"
+	"fmt"
 
-	notificationmodel "github.com/KusakinDev/Catering-Notif-Service/internal/models/notification_model"
+	delivernotifmodel "github.com/Alexander-s-Digital-Marketplace/notif-service/internal/models/deliver_notif_model"
+	resetnotifmodel "github.com/Alexander-s-Digital-Marketplace/notif-service/internal/models/reset_notif_model"
+	sellnotifmodel "github.com/Alexander-s-Digital-Marketplace/notif-service/internal/models/sell_notif_model"
 	"github.com/sirupsen/logrus"
 	"github.com/streadway/amqp"
 )
 
 type RabbitMQ struct {
-	connection *amqp.Connection
-	channel    *amqp.Channel
-	Consumer   <-chan amqp.Delivery
+	connection      *amqp.Connection
+	channel         *amqp.Channel
+	ResetConsumer   <-chan amqp.Delivery
+	DeliverConsumer <-chan amqp.Delivery
+	SellConsumer    <-chan amqp.Delivery
 }
 
 func (rmq *RabbitMQ) InitConnection() error {
@@ -50,14 +55,14 @@ func (rmq *RabbitMQ) DeclareQueue(queueName string) error {
 	return err
 }
 
-func (rmq *RabbitMQ) InitConsumer(queueName string) error {
+func (rmq *RabbitMQ) InitConsumer(queueName string, consumerType string) error {
 	if err := rmq.DeclareQueue(queueName); err != nil {
 		logrus.Errorln("Error declaring queue: ", err)
 		return err
 	}
 
 	var err error
-	rmq.Consumer, err = rmq.channel.Consume(
+	consumer, err := rmq.channel.Consume(
 		queueName, // queue name
 		"",        // consumer tag
 		true,      // auto ack
@@ -70,6 +75,18 @@ func (rmq *RabbitMQ) InitConsumer(queueName string) error {
 		logrus.Errorln("RabbitMQ.Queue: ", err)
 		return err
 	}
+
+	switch consumerType {
+	case "reset":
+		rmq.ResetConsumer = consumer
+	case "deliver":
+		rmq.DeliverConsumer = consumer
+	case "sell":
+		rmq.SellConsumer = consumer
+	default:
+		return fmt.Errorf("unknown consumer type: %s", consumerType)
+	}
+
 	return nil
 }
 
@@ -87,30 +104,44 @@ func (rmq *RabbitMQ) Publish(body []byte, queueName string) error {
 	if err != nil {
 		logrus.Errorln("RabbitMQ.Publish: ", err)
 	}
+	logrus.Infoln("RabbitMQ.Publish: Success publish")
 	return err
 }
 
-func (rmq *RabbitMQ) ConsumeNotifDish() {
-	for d := range rmq.Consumer {
-		var notif notificationmodel.Notification
+func (rmq *RabbitMQ) ConsumeReset() {
+	for d := range rmq.ResetConsumer {
+		var notif resetnotifmodel.ResetNotification
 		err := json.Unmarshal(d.Body, &notif)
 		if err != nil {
 			logrus.Errorln("Error decoding notification: ", err)
 			continue
 		}
-		notif.SendDish()
+		notif.Send()
+		logrus.Infoln("RabbitMQ.ConsumeReset: Success send email")
 	}
 }
 
-func (rmq *RabbitMQ) ConsumeNotifMessage() {
-	for d := range rmq.Consumer {
-		var notif notificationmodel.Notification
+func (rmq *RabbitMQ) ConsumeDeliver() {
+	for d := range rmq.DeliverConsumer {
+		var notif delivernotifmodel.DeliverNotification
 		err := json.Unmarshal(d.Body, &notif)
 		if err != nil {
 			logrus.Errorln("Error decoding notification: ", err)
 			continue
 		}
-		notif.SendMessage()
+		notif.Send()
+	}
+}
+
+func (rmq *RabbitMQ) ConsumeSell() {
+	for d := range rmq.SellConsumer {
+		var notif sellnotifmodel.SellNotification
+		err := json.Unmarshal(d.Body, &notif)
+		if err != nil {
+			logrus.Errorln("Error decoding notification: ", err)
+			continue
+		}
+		notif.Send()
 	}
 }
 

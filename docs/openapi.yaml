@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  description: Notif service.
+  title: Catering service
+  version: 1.0.0
+servers:
+- url: /
+security:
+- BearerAuth: []
+paths:
+  /NotifNewDish:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_notif_new_dish_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_notif_new_dish_response'
+          description: Success creating notification
+        "401":
+          description: Error creating notification
+      summary: Create new notification in queue
+  /AddNewEmail:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_add_new_email_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_add_new_email_response'
+          description: Success add email
+        "401":
+          description: Error add email
+      summary: Add new email for notification
+components:
+  schemas:
+    _notif_new_dish_request:
+      properties:
+        name:
+          type: string
+      type: object
+    _notif_new_dish_response:
+      example:
+        message: message
+      properties:
+        message:
+          type: string
+      type: object
+    _add_new_email_request:
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+      type: object
+    _add_new_email_response:
+      example:
+        message: message
+      properties:
+        message:
+          type: string
+      type: object
+  securitySchemes:
+    BearerAuth:
+      scheme: bearer
+      type: http

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package menu;
+
+option go_package = "/notif_new_menu";
+
+service NotifNewMenuService {
+  rpc NotifNewMenu (MenuRequest) returns (MenuResponse);
+}
+
+message MenuRequest {
+    string message = 1;
+}
+
+message MenuResponse {
+    string message = 1;
+}

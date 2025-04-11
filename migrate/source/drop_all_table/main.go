@@ -1,8 +1,8 @@
 package main
 
 import (
-	loggerconfig "github.com/KusakinDev/Catering-Notif-Service/internal/config/logger"
-	"github.com/KusakinDev/Catering-Notif-Service/internal/database"
+	loggerconfig "github.com/Alexander-s-Digital-Marketplace/notif-service/internal/config/logger"
+	"github.com/Alexander-s-Digital-Marketplace/notif-service/internal/database"
 	"github.com/sirupsen/logrus"
 )
 

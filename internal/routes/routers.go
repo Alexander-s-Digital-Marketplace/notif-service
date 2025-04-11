@@ -12,7 +12,7 @@ package routerpkg
 import (
 	"net/http"
 
-	"github.com/KusakinDev/Catering-Notif-Service/internal/api"
+	"github.com/Alexander-s-Digital-Marketplace/notif-service/internal/api"
 	"github.com/gin-gonic/gin"
 )
 

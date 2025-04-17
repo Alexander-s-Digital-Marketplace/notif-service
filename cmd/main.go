@@ -13,56 +13,38 @@ import (
 	"log"
 	"net"
 
-	loggerconfig "github.com/KusakinDev/Catering-Notif-Service/internal/config/logger"
-	grpcnotifnewmenu "github.com/KusakinDev/Catering-Notif-Service/internal/handlers/grpc_notif_new_menu"
-	routerpkg "github.com/KusakinDev/Catering-Notif-Service/internal/routes"
-	pb "github.com/KusakinDev/Catering-Notif-Service/internal/services/notif_new_menu/notif_new_menu"
-	rabbitmq "github.com/KusakinDev/Catering-Notif-Service/internal/utils/RabbitMQ"
+	loggerconfig "github.com/Alexander-s-Digital-Marketplace/notif-service/internal/config/logger"
+	pb "github.com/Alexander-s-Digital-Marketplace/notif-service/internal/services/notification_service"
+	notificationserviceserver "github.com/Alexander-s-Digital-Marketplace/notif-service/internal/services/notification_service_server"
+	rabbitmq "github.com/Alexander-s-Digital-Marketplace/notif-service/internal/utils/RabbitMQ"
 	"google.golang.org/grpc"
 )
 
 func main() {
 	loggerconfig.Init()
 
-	go func() {
-		var rmqDish rabbitmq.RabbitMQ
-		rmqDish.InitConnection()
-		rmqDish.InitChannel()
-		rmqDish.InitConsumer("dishQueue")
-		go rmqDish.ConsumeNotifDish()
+	var rmq rabbitmq.RabbitMQ
+	rmq.InitConnection()
+	rmq.InitChannel()
+	rmq.InitConsumer("reset_email", "reset")
+	rmq.InitConsumer("deliver_email", "deliver")
+	rmq.InitConsumer("sell_email", "sell")
+	go rmq.ConsumeReset()
+	go rmq.ConsumeDeliver()
+	go rmq.ConsumeSell()
 
-		routes := routerpkg.ApiHandleFunctions{}
-		routes.DefaultAPI.RMQ = &rmqDish
+	listener, err := net.Listen("tcp", ":50053")
+	if err != nil {
+		log.Fatalf("Failed to listen: %v", err)
+	}
 
-		log.Printf("Server started")
+	grpcServer := grpc.NewServer()
 
-		router := routerpkg.NewRouter(routes)
+	pb.RegisterNotificationServiceServer(grpcServer, &notificationserviceserver.Server{Rmq: &rmq})
 
-		log.Fatal(router.Run(":8082"))
-	}()
-
-	go func() {
-		var rmqMenu rabbitmq.RabbitMQ
-		rmqMenu.InitConnection()
-		rmqMenu.InitChannel()
-		rmqMenu.InitConsumer("menuQueue")
-		go rmqMenu.ConsumeNotifMessage()
-
-		listener, err := net.Listen("tcp", ":50051")
-		if err != nil {
-			log.Fatalf("Failed to listen: %v", err)
-		}
-
-		grpcServer := grpc.NewServer()
-
-		pb.RegisterNotifNewMenuServiceServer(grpcServer, &grpcnotifnewmenu.Server{Rmq: &rmqMenu})
-
-		log.Println("gRPC server is running on port :50051")
-		if err := grpcServer.Serve(listener); err != nil {
-			log.Fatalf("Failed to serve gRPC server: %v", err)
-		}
-	}()
-
-	select {}
+	log.Println("gRPC server is running on port :50053")
+	if err := grpcServer.Serve(listener); err != nil {
+		log.Fatalf("Failed to serve gRPC server: %v", err)
+	}
 
 }

@@ -22,3 +22,52 @@
 [36mINFO[0m[2025-04-09 18:45:20] Success send email to: AliceDeeb@ex.com      
 [36mINFO[0m[2025-04-09 18:45:23] Success send email to: BobQwe@ex.com         
 [36mINFO[0m[2025-04-09 18:45:26] Success send email to: pm12.kusakin@gmail.com 
+[36mINFO[0m[2025-04-11 15:40:24] RabbitMQ.chanel SUCCESS CONNECT              
+[36mINFO[0m[2025-04-11 15:40:24] RabbitMQ.chanel SUCCESS OPEN                 
+[36mINFO[0m[2025-04-11 15:44:31] RabbitMQ.chanel SUCCESS CONNECT              
+[36mINFO[0m[2025-04-11 15:44:32] RabbitMQ.chanel SUCCESS OPEN                 
+[36mINFO[0m[2025-04-11 15:44:39] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 15:45:17] RabbitMQ.chanel SUCCESS CONNECT              
+[36mINFO[0m[2025-04-11 15:45:17] RabbitMQ.chanel SUCCESS OPEN                 
+[36mINFO[0m[2025-04-11 15:45:21] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 15:46:29] RabbitMQ.chanel SUCCESS CONNECT              
+[36mINFO[0m[2025-04-11 15:46:29] RabbitMQ.chanel SUCCESS OPEN                 
+[36mINFO[0m[2025-04-11 15:47:00] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 15:47:02] RabbitMQ.ConsumeReset: Success send email    
+[36mINFO[0m[2025-04-11 15:50:52] RabbitMQ.chanel SUCCESS CONNECT              
+[36mINFO[0m[2025-04-11 15:50:52] RabbitMQ.chanel SUCCESS OPEN                 
+[36mINFO[0m[2025-04-11 15:50:56] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 15:50:58] RabbitMQ.ConsumeReset: Success send email    
+[31mERRO[0m[2025-04-11 15:51:31] Error find template                          
+[36mINFO[0m[2025-04-11 15:52:18] RabbitMQ.Publish: Success publish            
+[31mERRO[0m[2025-04-11 15:52:18] template: deliver:24:22: executing "deliver" at <.Tile>: can't evaluate field Tile in type *delivernotifmodel.DeliverNotification 
+[36mINFO[0m[2025-04-11 15:52:36] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 15:53:53] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 15:54:24] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 15:55:03] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 15:55:05] RabbitMQ.ConsumeReset: Success send email    
+[36mINFO[0m[2025-04-11 15:55:05] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 15:55:08] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 16:28:24] RabbitMQ.chanel SUCCESS CONNECT              
+[36mINFO[0m[2025-04-11 16:28:24] RabbitMQ.chanel SUCCESS OPEN                 
+[36mINFO[0m[2025-04-11 16:28:42] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 16:28:45] RabbitMQ.ConsumeReset: Success send email    
+[36mINFO[0m[2025-04-11 16:29:02] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 16:29:03] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 17:12:53] RabbitMQ.chanel SUCCESS CONNECT              
+[36mINFO[0m[2025-04-11 17:12:53] RabbitMQ.chanel SUCCESS OPEN                 
+[36mINFO[0m[2025-04-11 17:14:40] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 17:15:23] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 17:20:10] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 17:20:53] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 17:38:56] RabbitMQ.chanel SUCCESS CONNECT              
+[36mINFO[0m[2025-04-11 17:38:56] RabbitMQ.chanel SUCCESS OPEN                 
+[36mINFO[0m[2025-04-11 17:39:02] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 17:39:05] RabbitMQ.ConsumeReset: Success send email    
+[36mINFO[0m[2025-04-11 17:46:34] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-11 17:46:36] RabbitMQ.ConsumeReset: Success send email    
+[36mINFO[0m[2025-04-17 13:29:12] RabbitMQ.chanel SUCCESS CONNECT              
+[36mINFO[0m[2025-04-17 13:29:12] RabbitMQ.chanel SUCCESS OPEN                 
+[36mINFO[0m[2025-04-17 13:32:24] RabbitMQ.Publish: Success publish            
+[36mINFO[0m[2025-04-17 13:32:28] RabbitMQ.ConsumeReset: Success send email    
+[36mINFO[0m[2025-04-17 13:36:39] RabbitMQ.Publish: Success publish            

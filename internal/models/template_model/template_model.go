@@ -1,7 +1,7 @@
 package templatemodel
 
 import (
-	"github.com/KusakinDev/Catering-Notif-Service/internal/database"
+	"github.com/Alexander-s-Digital-Marketplace/notif-service/internal/database"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )

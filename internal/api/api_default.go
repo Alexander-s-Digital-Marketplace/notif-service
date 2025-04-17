@@ -10,8 +10,7 @@
 package api
 
 import (
-	notifnewdish "github.com/KusakinDev/Catering-Notif-Service/internal/handlers/notif_new_dish"
-	rabbitmq "github.com/KusakinDev/Catering-Notif-Service/internal/utils/RabbitMQ"
+	rabbitmq "github.com/Alexander-s-Digital-Marketplace/notif-service/internal/utils/RabbitMQ"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,6 +27,5 @@ func (api *DefaultAPI) AddNewEmailPost(c *gin.Context) {
 // Post /NotifNewDish
 // Create new notification in queue
 func (api *DefaultAPI) NotifNewDishPost(c *gin.Context) {
-	code, message := notifnewdish.NotifNewDish(c, api.RMQ)
-	c.JSON(code, gin.H{"message": message})
+	c.JSON(200, gin.H{"status": "OK"})
 }

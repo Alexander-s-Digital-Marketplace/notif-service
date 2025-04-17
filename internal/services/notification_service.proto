@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package notif;
+
+option go_package = "/notification_service";
+
+service NotificationService {
+  rpc ResetNotif (ResetRequest) returns (Response);
+  rpc DeliverNotif (DeliverRequest) returns (Response);
+  rpc SellNotif (SellRequest) returns (Response);
+}
+
+message Response {
+    int32 code = 1;
+    string message = 2;
+}
+
+//ResetStruct
+message ResetRequest {
+    string email = 1;
+    int32 resetCode = 2;
+}
+
+//DeliverStruct
+message DeliverRequest {
+    string email = 1;
+    string product = 2;
+    string item = 3;
+}
+
+//SellStruct
+message SellRequest {
+    string email = 1;
+    string product = 2;
+    double price = 3;
+    double fee = 4;
+}
+
+//protoc --go_out=. --go-grpc_out=. notification_service.proto
+
+

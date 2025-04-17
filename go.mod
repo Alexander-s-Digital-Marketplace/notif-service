@@ -1,4 +1,4 @@
-module github.com/KusakinDev/Catering-Notif-Service
+module github.com/Alexander-s-Digital-Marketplace/notif-service
 
 go 1.23
 
